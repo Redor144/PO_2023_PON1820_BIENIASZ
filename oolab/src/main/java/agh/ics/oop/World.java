@@ -25,5 +25,9 @@ public class World {
         Vector2d position2 = new Vector2d(-2,1);
         System.out.println(position2);
         System.out.println(position1.add(position2));
+        System.out.println(MapDirection.SOUTH.next());
+        System.out.println(MapDirection.SOUTH.previous());
+        Vector2d position3 = MapDirection.SOUTH.toUnitVector();
+        System.out.println(position3);
     }
 }
