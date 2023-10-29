@@ -17,7 +17,7 @@ public class Animal {
 
     @Override
     public String toString(){
-        return "Obecna pozycja i orientcja: %s %s ".formatted(posision.toString(), orientation.toString());
+        return "current posision and orientation: %s %s ".formatted(posision.toString(), orientation.toString());
     }
     public boolean isAt(Vector2d posision){
         return this.posision.equals(posision);
