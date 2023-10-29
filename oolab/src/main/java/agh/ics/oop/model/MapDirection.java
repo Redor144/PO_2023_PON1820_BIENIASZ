@@ -7,22 +7,10 @@ public enum MapDirection {
     EAST;
 
     public MapDirection next(){
-        return switch (this){
-
-            case NORTH -> EAST;
-            case SOUTH -> WEST;
-            case WEST -> NORTH;
-            case EAST -> SOUTH;
-        };
+        return values()[(this.ordinal()+1)%4];
     }
     public MapDirection previous(){
-        return switch(this){
-
-            case NORTH -> WEST;
-            case SOUTH -> EAST;
-            case WEST -> SOUTH;
-            case EAST -> NORTH;
-        };
+        return values()[Math.abs(this.ordinal()+3)%4];
     }
     public Vector2d toUnitVector(){
         return switch(this){
