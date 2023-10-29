@@ -9,19 +9,19 @@ public class OptionsParser {
         for (String arg : args) {
             switch (arg) {
                 case "f" -> {
-                    mov_dir[index] = MoveDirection.f;
+                    mov_dir[index] = MoveDirection.FORWARD;
                     index++;
                 }
                 case "b" -> {
-                    mov_dir[index] = MoveDirection.b;
+                    mov_dir[index] = MoveDirection.BACKWARD;
                     index++;
                 }
                 case "r" -> {
-                    mov_dir[index] = MoveDirection.r;
+                    mov_dir[index] = MoveDirection.RIGHT;
                     index++;
                 }
                 case "l" -> {
-                    mov_dir[index] = MoveDirection.l;
+                    mov_dir[index] = MoveDirection.LEFT;
                     index++;
                 }
             }
