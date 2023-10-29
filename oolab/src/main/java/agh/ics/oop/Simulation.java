@@ -22,7 +22,7 @@ public class Simulation {
         for(int i =0 ;i < moves.size(); i++){
             Animal curr_animal = animals.get(i % animals.size());
             curr_animal.move(moves.get(i));
-            System.out.println("Zwierzę: " + i % animals.size()+" " + curr_animal.toString());
+            System.out.println("Animal " + i % animals.size()+" " + curr_animal.toString());
         }
     }
 
