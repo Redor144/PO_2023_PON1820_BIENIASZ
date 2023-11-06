@@ -21,4 +21,15 @@ public enum MapDirection {
             case EAST -> new Vector2d(1,0);
         };
     }
+
+    @Override
+    public String toString() {
+        return switch(this){
+
+            case NORTH -> "^";
+            case SOUTH -> "v";
+            case WEST -> "<";
+            case EAST -> ">";
+        };
+    }
 }
