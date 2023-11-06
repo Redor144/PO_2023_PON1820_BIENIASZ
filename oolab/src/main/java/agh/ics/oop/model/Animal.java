@@ -1,13 +1,17 @@
 package agh.ics.oop.model;
 import agh.ics.oop.model.Vector2d;
 
-public class Animal {
+public class Animal implements MoveValidator {
     private MapDirection orientation;
     private Vector2d posision;
 
     public Animal(){
         posision = new Vector2d(2,2);
         orientation = MapDirection.NORTH;
+    }
+
+    public Vector2d getPosision() {
+        return posision;
     }
 
     public Animal(Vector2d posision){
@@ -17,26 +21,23 @@ public class Animal {
 
     @Override
     public String toString(){
-        return "current posision and orientation: %s %s".formatted(posision.toString(), orientation.toString());
+        return orientation.toString();
     }
     public boolean isAt(Vector2d posision){
         return this.posision.equals(posision);
     }
 
-    public void move(MoveDirection direction){
-        Vector2d map_border_down = new Vector2d(0,0);
-        Vector2d map_border_up = new Vector2d(4,4);
+    public void move(MoveDirection direction,MoveValidator validator){
         switch (direction){
-
             case FORWARD -> {
                 Vector2d next_posis_predict=posision.add(orientation.toUnitVector());
-                if(next_posis_predict.precedes(map_border_up) && next_posis_predict.follows(map_border_down)){
+                if(validator.canMoveTo(next_posis_predict)){
                     posision = next_posis_predict;
                 }
             }
             case BACKWARD -> {
                 Vector2d next_posis_predict=posision.subtract(orientation.toUnitVector());
-                if(next_posis_predict.precedes(map_border_up) && next_posis_predict.follows(map_border_down)){
+                if(validator.canMoveTo(next_posis_predict)){
                     posision = next_posis_predict;
                 }
             }
@@ -48,5 +49,10 @@ public class Animal {
             }
         }
 
+    }
+
+    @Override
+    public boolean canMoveTo(Vector2d position) {
+        return false;
     }
 }
