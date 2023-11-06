@@ -14,9 +14,9 @@ public class Animal implements MoveValidator {
         return position;
     }
 
-    public Animal(Vector2d position){
+    public Animal(Vector2d position) {
         this.position = position;
-        this.orientation = MapDirection.NORTH;
+        orientation = MapDirection.NORTH;
     }
 
     @Override
@@ -26,7 +26,6 @@ public class Animal implements MoveValidator {
     public boolean isAt(Vector2d position){
         return this.position.equals(position);
     }
-
     public void move(MoveDirection direction,MoveValidator validator){
         switch (direction){
             case FORWARD -> {
@@ -36,9 +35,9 @@ public class Animal implements MoveValidator {
                 }
             }
             case BACKWARD -> {
-                Vector2d next_posis_predict=position.subtract(orientation.toUnitVector());
-                if(validator.canMoveTo(next_posis_predict)){
-                    position = next_posis_predict;
+                Vector2d next_posit_predict=position.subtract(orientation.toUnitVector());
+                if(validator.canMoveTo(next_posit_predict)){
+                    position = next_posit_predict;
                 }
             }
             case RIGHT -> {
@@ -48,7 +47,6 @@ public class Animal implements MoveValidator {
                 orientation = orientation.previous();
             }
         }
-
     }
 
     @Override
