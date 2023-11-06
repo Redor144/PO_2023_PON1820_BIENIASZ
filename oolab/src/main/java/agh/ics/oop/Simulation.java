@@ -12,7 +12,7 @@ public class Simulation {
     private List<Animal> animals;
     private List<MoveDirection> moves;
     private WorldMap map;
-
+    
     public Simulation(List<MoveDirection> moves, List<Vector2d> positions,WorldMap map){
         List<Animal> animals = new ArrayList<>();
         for(int i =0;i<positions.size();i++){
