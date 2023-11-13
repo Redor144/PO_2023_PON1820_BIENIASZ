@@ -1,7 +1,7 @@
 package agh.ics.oop.model;
 import agh.ics.oop.model.Vector2d;
 
-public class Animal implements MoveValidator {
+public class Animal implements WorldElement {
     private MapDirection orientation;
     private Vector2d position;
 
@@ -10,6 +10,7 @@ public class Animal implements MoveValidator {
         orientation = MapDirection.NORTH;
     }
 
+    @Override
     public Vector2d getPosition() {
         return position;
     }
@@ -47,10 +48,5 @@ public class Animal implements MoveValidator {
                 orientation = orientation.previous();
             }
         }
-    }
-
-    @Override
-    public boolean canMoveTo(Vector2d position) {
-        return false;
     }
 }

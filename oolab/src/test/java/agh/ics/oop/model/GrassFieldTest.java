@@ -1,13 +1,13 @@
 package agh.ics.oop.model;
+
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 
-public class RectangularMapTest {
+public class GrassFieldTest {
     @Test
-
     void testAnimalMovement() {
-        RectangularMap map = new RectangularMap(5, 5);
+        GrassField map = new GrassField(5);
         Animal animal1 = new Animal(new Vector2d(2, 2));
         Animal animal2 = new Animal(new Vector2d(3, 3));
 
@@ -17,20 +17,39 @@ public class RectangularMapTest {
         animal1.move(MoveDirection.FORWARD, map);
         animal2.move(MoveDirection.BACKWARD, map);
         animal1.move(MoveDirection.RIGHT, map);
+        animal1.move(MoveDirection.FORWARD, map);
 
         assertEquals(new Vector2d(2, 3), animal1.getPosition());
         assertEquals(new Vector2d(3, 2), animal2.getPosition());
     }
 
     @Test
-    void testAnimalCollision() {
-        RectangularMap map = new RectangularMap(5, 5);
-        Animal animal1 = new Animal(new Vector2d(2, 2));
-        Animal animal2 = new Animal(new Vector2d(2, 2));
+    void testAnimalGrassCollision() {
+        GrassField map = new GrassField(5);
+        Animal animal1 = new Animal(new Vector2d(2, 1));
+        Grass grass = new Grass(new Vector2d(2, 2));
 
         map.place(animal1);
-        assertFalse(map.place(animal2));
+        map.placeGrass(grass);
+        animal1.move(MoveDirection.FORWARD, map);
+        assertEquals(animal1, map.objectAt(animal1.getPosition()));
+
     }
+    @Test
+    void testAnimalGrassCollisionAfter() {
+        GrassField map = new GrassField(5);
+        Animal animal1 = new Animal(new Vector2d(2, 1));
+        Grass grass = new Grass(new Vector2d(2, 2));
+
+        map.place(animal1);
+        map.placeGrass(grass);
+        animal1.move(MoveDirection.FORWARD, map);
+        animal1.move(MoveDirection.FORWARD, map);
+        assertEquals(animal1, map.objectAt(animal1.getPosition()));
+        assertEquals(grass, map.objectAt(grass.getPosition()));
+
+    }
+
     @Test
     void testObjectAt() {
         GrassField map = new GrassField(5);
