@@ -31,7 +31,7 @@ public class GrassFieldTest {
 
         map.place(animal1);
         map.placeGrass(grass);
-        animal1.move(MoveDirection.FORWARD, map);
+        map.move(animal1,MoveDirection.FORWARD);
         assertEquals(animal1, map.objectAt(animal1.getPosition()));
 
     }
@@ -43,8 +43,8 @@ public class GrassFieldTest {
 
         map.place(animal1);
         map.placeGrass(grass);
-        animal1.move(MoveDirection.FORWARD, map);
-        animal1.move(MoveDirection.FORWARD, map);
+        map.move(animal1, MoveDirection.FORWARD);
+        map.move(animal1, MoveDirection.FORWARD);
         assertEquals(animal1, map.objectAt(animal1.getPosition()));
         assertEquals(grass, map.objectAt(grass.getPosition()));
 

@@ -64,10 +64,17 @@ public class GrassField extends AbstractWorldMap{
         }
         return false;
     }
+    boolean isOccupiedByAnimal(Vector2d position){
+        return animals.containsKey(position);
+    }
     @Override
     public WorldElement objectAt(Vector2d position) {
-        if(animals.containsKey(position))return animals.get(position);
+        if(isOccupiedByAnimal(position))return animals.get(position);
         else return grassField.get(position);
     }
-
+    @Override
+    public boolean canMoveTo(Vector2d position){
+        if(!isOccupied(position))return true;
+        else return objectAt(position).getClass()!= Animal.class;
+    }
 }
