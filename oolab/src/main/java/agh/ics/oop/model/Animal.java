@@ -10,6 +10,10 @@ public class Animal implements WorldElement {
         orientation = MapDirection.NORTH;
     }
 
+    public MapDirection getOrientation() {
+        return orientation;
+    }
+
     @Override
     public Vector2d getPosition() {
         return position;

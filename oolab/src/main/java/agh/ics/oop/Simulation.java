@@ -13,7 +13,13 @@ public class Simulation {
     public Simulation(List<MoveDirection> moves, List<Vector2d> positions,WorldMap map){
         List<Animal> animals = new ArrayList<>();
         for (Vector2d position : positions) {
-            animals.add(new Animal(position));
+            try{
+            Animal animal = new Animal(position);
+            map.place(animal);
+            animals.add(animal);
+            }catch (PositionAlreadyOccupiedException ex){
+                System.out.println(ex.getMessage());
+            }
         }
         this.animals = animals;
         this.moves = moves;
@@ -23,7 +29,6 @@ public class Simulation {
         for(int i =0 ;i < moves.size(); i++){
             Animal curr_animal = animals.get(i % animals.size());
             map.move(curr_animal,moves.get(i));
-            System.out.println(map);
         }
     }
 
