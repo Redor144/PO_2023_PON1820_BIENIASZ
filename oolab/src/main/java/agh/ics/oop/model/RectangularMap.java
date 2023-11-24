@@ -5,8 +5,7 @@ import agh.ics.oop.MapVisualizer;
 import java.util.HashMap;
 import java.util.Map;
 
-public class RectangularMap implements WorldMap {
-    private Map<Vector2d, Animal> animals = new HashMap<>();
+public class RectangularMap extends AbstractWorldMap{
     private final int width;
     private final int height;
 
@@ -14,36 +13,6 @@ public class RectangularMap implements WorldMap {
         this.height=height;
         this.width=width;
     }
-
-    @Override
-    public boolean place(Animal animal){
-        if (canMoveTo(animal.getPosition())) {
-            animals.put(animal.getPosition(),animal);
-            return true;
-        }
-        return false;
-    }
-
-    @Override
-    public void move(Animal animal, MoveDirection direction) {
-        Vector2d prevPosition = animal.getPosition();
-        animal.move(direction,this);
-        if(!prevPosition.equals(animal.getPosition())){
-            animals.remove(prevPosition,animal);
-            animals.put(animal.getPosition(),animal);
-        }
-    }
-
-    @Override
-    public boolean isOccupied(Vector2d position){
-        return animals.containsKey(position);
-    }
-
-    @Override
-    public Animal objectAt(Vector2d position) {
-        return animals.get(position);
-    }
-
     @Override
     public boolean canMoveTo(Vector2d position) {
         return position.follows(new Vector2d(0,0))
