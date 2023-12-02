@@ -1,13 +1,5 @@
 package agh.ics.oop.model;
 
-import agh.ics.oop.MapVisualizer;
-
-import java.util.HashMap;
-import java.util.Map;
-
-import static java.lang.Math.max;
-import static java.lang.Math.min;
-
 public class RectangularMap extends AbstractWorldMap{
     private final int width;
     private final int height;
