@@ -6,8 +6,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Simulation {
-    private List<Animal> animals;
-    private List<MoveDirection> moves;
+    private final List<Animal> animals;
+    private final List<MoveDirection> moves;
     private WorldMap map;
     
     public Simulation(List<MoveDirection> moves, List<Vector2d> positions,WorldMap map){
@@ -27,8 +27,8 @@ public class Simulation {
     }
     public void run(){
         for(int i =0 ;i < moves.size(); i++){
-            Animal curr_animal = animals.get(i % animals.size());
-            map.move(curr_animal,moves.get(i));
+            Animal currAnimal = animals.get(i % animals.size());
+            map.move(currAnimal,moves.get(i));
         }
     }
 
