@@ -7,30 +7,29 @@ import java.util.*;
 import static java.lang.Math.*;
 
 public class GrassField extends AbstractWorldMap{
-    private final Map<Vector2d,WorldElement> grassField;
     public GrassField(int grassNum) {
         grassField = new HashMap<>();
         setGrassOnMap(grassNum);
     }
     public void setGrassOnMap(int grassNum){
         int maxGrass = (int) sqrt(grassNum*10);
+        Random random = new Random();
         while (grassField.size() < grassNum){
-            Random random = new Random();
             int x = random.nextInt(maxGrass+1);
-            int y = random.nextInt((maxGrass+1));
-            Vector2d newposition = new Vector2d(x,y);
-            Grass newGrass = new Grass(newposition);
+            int y = random.nextInt(maxGrass+1);
+            Vector2d newPosition = new Vector2d(x,y);
+            Grass newGrass = new Grass(newPosition);
             grassField.put(newGrass.getPosition(),newGrass);
         }
     }
+    boolean isOccupiedByGrass(Vector2d position){
+        return grassField.containsKey(position);
+    }
     public void placeGrass(Grass grass) throws PositionAlreadyOccupiedException{
-        if(!isOccupied(grass.getPosition())){
+        if(!isOccupiedByGrass(grass.getPosition())){
             grassField.put(grass.getPosition(),grass);
         }
         else throw new PositionAlreadyOccupiedException(grass.getPosition());
-    }
-    boolean isOccupiedByAnimal(Vector2d position){
-        return animals.containsKey(position);
     }
     @Override
     public WorldElement objectAt(Vector2d position) {
@@ -40,10 +39,10 @@ public class GrassField extends AbstractWorldMap{
 
     @Override
     public Boundary getCurrentBounds() {
-        int minX=Integer.MAX_VALUE;
-        int minY=Integer.MAX_VALUE;
-        int maxX=Integer.MIN_VALUE;
-        int maxY=Integer.MIN_VALUE;
+        int minX=Integer.MAX_VALUE,
+            minY=Integer.MAX_VALUE,
+            maxX=Integer.MIN_VALUE,
+            maxY=Integer.MIN_VALUE;
         for(Vector2d key : grassField.keySet()){
             minX=min(key.getX(), minX);
             minY=min(key.getY(), minY);
@@ -57,11 +56,5 @@ public class GrassField extends AbstractWorldMap{
             maxY=max(key.getY(), maxY);
         }
         return new Boundary(new Vector2d(minX,minY),new Vector2d(maxX,maxY));
-    }
-
-    @Override
-    public boolean canMoveTo(Vector2d position){
-        if(!isOccupied(position))return true;
-        else return objectAt(position).getClass()!= Animal.class;
     }
 }
