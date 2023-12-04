@@ -1,13 +1,12 @@
 package agh.ics.oop.model;
 
-import agh.ics.oop.MapVisualizer;
-
 import java.util.*;
 
 import static java.lang.Math.*;
 
 public class GrassField extends AbstractWorldMap{
     public GrassField(int grassNum) {
+        super(UUID.randomUUID());
         grassField = new HashMap<>();
         setGrassOnMap(grassNum);
     }

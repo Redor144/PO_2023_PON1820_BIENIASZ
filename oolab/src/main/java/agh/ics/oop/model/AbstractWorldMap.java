@@ -10,8 +10,13 @@ import static java.lang.Math.min;
 public abstract class AbstractWorldMap implements WorldMap {
     protected Map<Vector2d, Animal> animals = new HashMap<>();
     protected Map<Vector2d, Grass> grassField = new HashMap<>();
-
     protected List<MapChangeListener> observers = new ArrayList<>();
+
+    protected final UUID id;
+
+    protected AbstractWorldMap(UUID id) {
+        this.id = id;
+    }
 
     public void addObserver(MapChangeListener observer){
         observers.add(observer);
@@ -94,5 +99,7 @@ public abstract class AbstractWorldMap implements WorldMap {
             return grassField.get(position);
         }
     }
-
+    public UUID getId(){
+        return id;
+    }
 }

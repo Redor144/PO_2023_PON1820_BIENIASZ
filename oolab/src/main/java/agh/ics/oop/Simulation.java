@@ -5,7 +5,7 @@ import agh.ics.oop.model.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Simulation {
+public class Simulation implements Runnable{
     private final List<Animal> animals;
     private final List<MoveDirection> moves;
     private WorldMap map;
@@ -28,7 +28,11 @@ public class Simulation {
     public void run(){
         for(int i =0 ;i < moves.size(); i++){
             Animal currAnimal = animals.get(i % animals.size());
-            map.move(currAnimal,moves.get(i));
+            try{
+                map.move(currAnimal,moves.get(i));
+            }catch (IllegalArgumentException e){
+                System.err.println(e.getMessage());
+            }
         }
     }
 
