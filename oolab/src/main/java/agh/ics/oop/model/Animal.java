@@ -5,9 +5,8 @@ public class Animal implements WorldElement {
     private MapDirection orientation;
     private Vector2d position;
 
-    public Animal(){
-        position = new Vector2d(2,2);
-        orientation = MapDirection.NORTH;
+    public MapDirection getOrientation() {
+        return orientation;
     }
 
     @Override
@@ -30,16 +29,10 @@ public class Animal implements WorldElement {
     public void move(MoveDirection direction,MoveValidator validator){
         switch (direction){
             case FORWARD -> {
-                Vector2d next_posit_predict=position.add(orientation.toUnitVector());
-                if(validator.canMoveTo(next_posit_predict)){
-                    position = next_posit_predict;
-                }
+                position = canForwardOrBackward(validator, MoveDirection.FORWARD);
             }
             case BACKWARD -> {
-                Vector2d next_posit_predict=position.subtract(orientation.toUnitVector());
-                if(validator.canMoveTo(next_posit_predict)){
-                    position = next_posit_predict;
-                }
+                position = canForwardOrBackward(validator,MoveDirection.BACKWARD);
             }
             case RIGHT -> {
                 orientation = orientation.next();
@@ -48,5 +41,9 @@ public class Animal implements WorldElement {
                 orientation = orientation.previous();
             }
         }
+    }
+    private Vector2d canForwardOrBackward(MoveValidator validator, MoveDirection move){
+        Vector2d nextPos = position.add(move == MoveDirection.FORWARD ? orientation.toUnitVector() : orientation.toUnitVector().opposite());
+        return validator.canMoveTo(nextPos) ? nextPos : position;
     }
 }
