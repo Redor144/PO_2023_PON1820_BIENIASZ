@@ -12,7 +12,7 @@ public class World {
             List<Vector2d> positions = List.of(new Vector2d(2,2), new Vector2d(3,4));
             ConsoleMapDisplay observer = new ConsoleMapDisplay();
             ArrayList<Simulation> simulations = new ArrayList<>();
-            int numberOfSimulations = 10000;
+            int numberOfSimulations = 20000;
 
             for(int i = 0; i<numberOfSimulations;i++){
                 WorldMap grassField = new GrassField(10);
