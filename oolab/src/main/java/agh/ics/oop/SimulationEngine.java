@@ -7,10 +7,13 @@ import java.util.concurrent.*;
 public class SimulationEngine{
 
     private ArrayList<Simulation> simulations;
+    private CountDownLatch latch;
+    private ExecutorService executor;
     private List<Thread> threads;
     public SimulationEngine(ArrayList<Simulation> simulations) {
         this.simulations = simulations;
-        threads = new ArrayList<>();
+        latch = new CountDownLatch(simulations.size());
+        executor = Executors.newFixedThreadPool(4);
     }
 
     public void runSync(){
@@ -18,46 +21,24 @@ public class SimulationEngine{
             simulation.run();
         }
     }
-    public void runAsync() throws InterruptedException{
+    public void runAsync(){
         for(Simulation simulation : simulations){
-            Thread thread = new Thread(simulation);
+            Thread thread = new Thread(() -> {
+            simulation.run();
+            latch.countDown();
+            });
             thread.start();
-            threads.add(thread);
-        }
-        for (Thread thread : threads) {
-            thread.join();
         }
     }
     public void awaitSimulationsEnd() throws InterruptedException{
-        while(!allSimulationsFinished()){
-            wait();
+        if (!executor.awaitTermination(10, TimeUnit.SECONDS)) {
+            executor.shutdownNow();
         }
-        System.out.println("System zakończył działanie");
-    }
-    private boolean allSimulationsFinished(){
-        for(Thread thread : threads){
-            if(thread.isAlive()){
-                return false;
-            }
-        }
-        return true;
     }
     public void runAsyncInThreadPool(){
-        ExecutorService executorService = Executors.newFixedThreadPool(4);
-        for(Simulation simulation : simulations){
-            executorService.submit(simulation);
-        }
-        shutdownExecutor(executorService);
-    }
-
-    private void shutdownExecutor(ExecutorService executorService){
-        executorService.shutdown();
-        try{
-            if(!executorService.awaitTermination(10, TimeUnit.SECONDS)){
-                executorService.shutdownNow();
-            }
-        }catch (InterruptedException e){
-            executorService.shutdownNow();
+        executor = Executors.newFixedThreadPool(4);
+        for (Simulation simulation : simulations) {
+            executor.submit(simulation);
         }
     }
 }
