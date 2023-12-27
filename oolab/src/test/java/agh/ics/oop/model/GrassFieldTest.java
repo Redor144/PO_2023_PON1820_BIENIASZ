@@ -6,7 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 
 public class GrassFieldTest {
     @Test
-    void testAnimalMovement() {
+    void testAnimalMovement() throws PositionAlreadyOccupiedException {
         GrassField map = new GrassField(5);
         Animal animal1 = new Animal(new Vector2d(2, 2));
         Animal animal2 = new Animal(new Vector2d(3, 3));
@@ -22,9 +22,21 @@ public class GrassFieldTest {
         assertEquals(new Vector2d(2, 3), animal1.getPosition());
         assertEquals(new Vector2d(3, 2), animal2.getPosition());
     }
-
     @Test
-    void testAnimalGrassCollision() {
+    void testAnimalCollision() throws PositionAlreadyOccupiedException {
+        GrassField map = new GrassField(5);
+        Animal animal1 = new Animal(new Vector2d(2, 2));
+        Animal animal2 = new Animal(new Vector2d(2, 2));
+
+        map.place(animal1);
+        try{
+            map.place(animal2);
+        }catch (PositionAlreadyOccupiedException e){
+            assertEquals(e.getMessage(), "Position (2,2) is already occupied.");
+        }
+    }
+    @Test
+    void testAnimalGrassCollision() throws PositionAlreadyOccupiedException {
         GrassField map = new GrassField(5);
         Animal animal1 = new Animal(new Vector2d(2, 1));
         Grass grass = new Grass(new Vector2d(2, 2));
@@ -36,7 +48,7 @@ public class GrassFieldTest {
 
     }
     @Test
-    void testAnimalGrassCollisionAfter() {
+    void testAnimalGrassCollisionAfter() throws PositionAlreadyOccupiedException {
         GrassField map = new GrassField(5);
         Animal animal1 = new Animal(new Vector2d(2, 1));
         Grass grass = new Grass(new Vector2d(2, 2));
@@ -51,7 +63,7 @@ public class GrassFieldTest {
     }
 
     @Test
-    void testObjectAt() {
+    void testObjectAt() throws PositionAlreadyOccupiedException {
         GrassField map = new GrassField(5);
         Animal animal = new Animal(new Vector2d(2, 2));
         Grass grass = new Grass(new Vector2d(3, 3));

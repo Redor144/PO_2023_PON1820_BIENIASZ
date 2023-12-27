@@ -12,7 +12,6 @@ public class GrassField extends AbstractWorldMap{
         grassField = new HashMap<>();
         setGrassOnMap(grassNum);
     }
-
     public void setGrassOnMap(int grassNum){
         int maxGrass = (int) sqrt(grassNum*10);
         while (grassField.size() < grassNum){
@@ -24,45 +23,11 @@ public class GrassField extends AbstractWorldMap{
             grassField.put(newGrass.getPosition(),newGrass);
         }
     }
-
-    @Override
-    public String toString() {
-        MapVisualizer visualizer = new MapVisualizer(this);
-        return visualizer.draw(getLower(),getUpper());
-    }
-    private Vector2d getLower(){
-        int minX=0;
-        int minY=0;
-        for(Vector2d key : grassField.keySet()){
-            minX=min(key.getX(), minX);
-            minY=min(key.getY(), minY);
-        }
-        for(Vector2d key : animals.keySet()){
-            minX=min(key.getX(), minX);
-            minY=min(key.getY(), minY);
-        }
-        return new Vector2d(minX,minY);
-    }
-
-    private Vector2d getUpper(){
-        int maxX=0;
-        int maxY=0;
-        for(Vector2d key : grassField.keySet()){
-            maxX=max(key.getX(), maxX);
-            maxY=max(key.getY(), maxY);
-        }
-        for(Vector2d key : animals.keySet()){
-            maxX=max(key.getX(), maxX);
-            maxY=max(key.getY(), maxY);
-        }
-        return new Vector2d(maxX,maxY);
-    }
-    public boolean placeGrass(Grass grass){
+    public void placeGrass(Grass grass) throws PositionAlreadyOccupiedException{
         if(!isOccupied(grass.getPosition())){
             grassField.put(grass.getPosition(),grass);
-
         }
-        return false;
+        else throw new PositionAlreadyOccupiedException(grass.getPosition());
     }
     boolean isOccupiedByAnimal(Vector2d position){
         return animals.containsKey(position);
@@ -72,6 +37,28 @@ public class GrassField extends AbstractWorldMap{
         if(isOccupiedByAnimal(position))return animals.get(position);
         else return grassField.get(position);
     }
+
+    @Override
+    public Boundary getCurrentBounds() {
+        int minX=Integer.MAX_VALUE;
+        int minY=Integer.MAX_VALUE;
+        int maxX=Integer.MIN_VALUE;
+        int maxY=Integer.MIN_VALUE;
+        for(Vector2d key : grassField.keySet()){
+            minX=min(key.getX(), minX);
+            minY=min(key.getY(), minY);
+            maxX=max(key.getX(), maxX);
+            maxY=max(key.getY(), maxY);
+        }
+        for(Vector2d key : animals.keySet()){
+            minX=min(key.getX(), minX);
+            minY=min(key.getY(), minY);
+            maxX=max(key.getX(), maxX);
+            maxY=max(key.getY(), maxY);
+        }
+        return new Boundary(new Vector2d(minX,minY),new Vector2d(maxX,maxY));
+    }
+
     @Override
     public boolean canMoveTo(Vector2d position){
         if(!isOccupied(position))return true;
