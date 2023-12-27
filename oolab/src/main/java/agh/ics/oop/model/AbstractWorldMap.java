@@ -9,9 +9,14 @@ import static java.lang.Math.min;
 
 public abstract class AbstractWorldMap implements WorldMap {
     protected Map<Vector2d, Animal> animals = new HashMap<>();
-    protected Map<Vector2d, Grass> grasses = new HashMap<>();
-
+    protected Map<Vector2d, Grass> grassField = new HashMap<>();
     protected List<MapChangeListener> observers = new ArrayList<>();
+
+    protected final UUID id;
+
+    protected AbstractWorldMap(UUID id) {
+        this.id = id;
+    }
 
     public void addObserver(MapChangeListener observer){
         observers.add(observer);
@@ -46,7 +51,7 @@ public abstract class AbstractWorldMap implements WorldMap {
     public Collection<WorldElement> getElements() {
         List<WorldElement> elements = new ArrayList<>();
         elements.addAll(animals.values());
-        elements.addAll(grasses.values());
+        elements.addAll(grassField.values());
         return elements;
     }
     @Override
@@ -78,8 +83,12 @@ public abstract class AbstractWorldMap implements WorldMap {
     public boolean isOccupied(Vector2d position) {
         return objectAt(position) != null;
     }
-    public boolean canMoveTo(Vector2d position) {
-        return !isOccupied(position);
+
+    boolean isOccupiedByAnimal(Vector2d position){
+        return animals.containsKey(position);
+    }
+    public boolean canMoveTo(Vector2d position){
+        return !isOccupiedByAnimal(position);
     }
 
     @Override
@@ -87,8 +96,10 @@ public abstract class AbstractWorldMap implements WorldMap {
         if (animals.containsKey(position)) {
             return animals.get(position);
         } else {
-            return grasses.get(position);
+            return grassField.get(position);
         }
     }
-
+    public UUID getId(){
+        return id;
+    }
 }

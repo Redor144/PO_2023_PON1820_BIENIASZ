@@ -1,6 +1,8 @@
 package agh.ics.oop.model;
 
 import java.util.Collection;
+import java.util.UUID;
+
 /**
  * The interface responsible for interacting with the map of the world.
  * Assumes that Vector2d and MoveDirection classes are defined.
@@ -45,4 +47,5 @@ public interface WorldMap extends MoveValidator {
 
     public void addObserver(MapChangeListener observer);
     public void removeObserver(MapChangeListener observer);
+    public UUID getId();
 }
