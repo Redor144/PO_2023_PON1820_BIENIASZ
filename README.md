@@ -100,7 +100,7 @@ Map ID: 0abfb352-cf50-4042-ae08-0166cd5ff913
 
 ### 🖼️ Przykładowe użycie w GUI:
 
-![Widok interfejsu graficznego](docs/image.png)
+![Widok interfejsu graficznego](image.png)
 
 ## 👨‍💻 Autorzy
 
