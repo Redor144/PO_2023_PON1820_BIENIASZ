@@ -72,9 +72,13 @@ Projekt to symulacja świata, w której zwierzęta 🦊🐻 poruszają się po m
 ## ⚙️ Założenia Działania
 
 - 🦊 Zwierzęta mogą poruszać się w czterech kierunkach: do przodu, do tyłu oraz obracać się w lewo lub prawo.
-- 🌿 Mapa przechowuje zarówno zwierzęta, jak i trawę, które wpływają na symulację.
-- 🔔 Istnieje mechanizm obserwatora, który powiadamia o zmianach na mapie.
-- ⚡ Aplikacja może działać w trybie wielu równoczesnych symulacji dzięki silnikowi wielowątkowemu.
+- 🌿 Mapa składa się z dynamicznie rozmieszczonych elementów, takich jak trawa oraz zwierzęta, które mogą zajmować te same pola lub kolidować w określonych przypadkach.
+- 🔔 Mechanizm obserwatora powiadamia o każdej zmianie w układzie mapy, rejestrując ruchy zwierząt oraz zmiany w terenie.
+- ⚡ Aplikacja umożliwia prowadzenie symulacji zarówno w trybie pojedynczym, jak i wielowątkowym, pozwalając na równoczesne uruchamianie wielu instancji symulacji.
+- 🏁 Zwierzęta poruszają się na podstawie zestawu komend, które mogą być wprowadzone ręcznie lub przekazane jako argumenty.
+- 📏 Granice mapy mogą być stałe (w przypadku `RectangularMap`) lub nieskończone w pewnym zakresie (`GrassField`).
+- 🎨 W trybie GUI użytkownik ma możliwość interakcji poprzez podanie sekwencji ruchów, a następnie obserwowanie zmian na mapie w czasie rzeczywistym.
+- 🧠 Każde zwierzę posiada własną orientację i logikę poruszania się, dzięki czemu symulacja może odzwierciedlać różne scenariusze poruszania się w środowisku.
 
 ## 📝 Przykładowe Użycie
 
@@ -104,7 +108,8 @@ Map ID: 0abfb352-cf50-4042-ae08-0166cd5ff913
 
 ## 👨‍💻 Autorzy
 
-Projekt został stworzony jako część nauki programowania obiektowego w języku Java ☕.
+Projekt został wykonany w ramach przedmiotu Programowanie Obiektowe prowadzonego na AGH UST.
+Kod został stworzony jako część nauki programowania w języku Java ☕.
 
 ## 📜 Licencja
 
