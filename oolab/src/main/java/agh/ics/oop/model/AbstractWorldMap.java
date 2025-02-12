@@ -11,7 +11,6 @@ public abstract class AbstractWorldMap implements WorldMap {
     protected Map<Vector2d, Animal> animals = new HashMap<>();
     protected Map<Vector2d, Grass> grassField = new HashMap<>();
     protected List<MapChangeListener> observers = new ArrayList<>();
-
     protected final UUID id;
 
     protected AbstractWorldMap(UUID id) {
@@ -73,9 +72,9 @@ public abstract class AbstractWorldMap implements WorldMap {
         if (!oldPosition.equals(newPosition)) {
             animals.remove(oldPosition);
             animals.put(newPosition, animal);
-            this.notifyObservers("Animal moved from " + oldPosition.toString() + " to " + newPosition.toString());
+            this.notifyObservers("Animal moved from " + oldPosition + " to " + newPosition.toString());
         } else if (!oldDirection.equals(newDirection)) {
-            this.notifyObservers("Animal changed orientation from " + oldDirection.toString() + " to " + newDirection.toString());
+            this.notifyObservers("Animal changed orientation from " + oldDirection + " to " + newDirection.toString());
         }
     }
 

@@ -6,7 +6,7 @@ import java.util.concurrent.*;
 
 public class SimulationEngine{
 
-    private ArrayList<Simulation> simulations;
+    private List<Simulation> simulations;
     private CountDownLatch latch;
     private ExecutorService executor;
     private List<Thread> threads;
@@ -21,11 +21,11 @@ public class SimulationEngine{
             simulation.run();
         }
     }
-    public void runAsync(){
-        for(Simulation simulation : simulations){
+    public void runAsync() throws InterruptedException{
+        for (Simulation simulation : simulations) {
             Thread thread = new Thread(() -> {
-            simulation.run();
-            latch.countDown();
+                simulation.run();
+                latch.countDown();
             });
             thread.start();
         }

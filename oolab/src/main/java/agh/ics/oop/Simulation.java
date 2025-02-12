@@ -28,10 +28,11 @@ public class Simulation implements Runnable{
     public void run(){
         for(int i =0 ;i < moves.size(); i++){
             Animal currAnimal = animals.get(i % animals.size());
-            try{
-                map.move(currAnimal,moves.get(i));
-            }catch (IllegalArgumentException e){
-                System.err.println(e.getMessage());
+            map.move(currAnimal,moves.get(i));
+            try {
+                Thread.sleep(500);
+            }catch (InterruptedException e){
+                throw new RuntimeException(e);
             }
         }
     }
