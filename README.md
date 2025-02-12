@@ -47,8 +47,8 @@ Projekt to symulacja świata, w której zwierzęta 🦊🐻 poruszają się po m
 
 1. Sklonuj repozytorium:
    ```bash
-   git clone https://github.com/twoje-repozytorium.git
-   cd twoje-repozytorium
+   git clone https://github.com/Redor144/PO_2023_PON1820_BIENIASZ.git
+   cd PO_2023_PON1820_BIENIASZ
    ```
 2. Skompiluj projekt:
    ```bash
